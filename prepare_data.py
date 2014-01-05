@@ -69,8 +69,6 @@ test_x = pca.transform(test_x)
 print train_x[:5]
 
 
-
-
 import pip
 from subprocess import call
 
