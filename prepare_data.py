@@ -51,7 +51,28 @@ for image in images:
     data.append(img)
 
 data = np.array(data)
-np.savetxt('processed_features-nparray.txt', data)
 
 # save dataset since its a long run
+np.savetxt('processed_features-nparray.txt', data)
 
+
+
+# Define a training and test set
+is_train = np.random.uniform(0, 1, len(data)) <= 0.7
+y = np.where(np.array(labels)=="dog", 1, 0)
+
+train_x, train_y = data[is_train], y[is_train]
+test_x, test_y = data[is_train==False], y[is_train==False]
+
+# Creating features
+# 45,000 features is a lot to deal with for many algorithms, so we need to reduce the number of dimensions somehow.
+# As an example, let's transform the dataset into just 2 components which we can easily plot in 2 dimensions.
+pca = RandomizedPCA(n_components=2)
+X = pca.fit_transform(data)
+df = pd.DataFrame({"x": X[:, 0], "y": X[:, 1], "label":np.where(y==1, "dog", "cat")})
+colors = ["red", "yellow"]
+for label, color in zip(df['label'].unique(), colors):
+    mask = df['label']==label
+    pl.scatter(df[mask]['x'], df[mask]['y'], c=color, label=label)
+pl.legend()
+#pl.show()
