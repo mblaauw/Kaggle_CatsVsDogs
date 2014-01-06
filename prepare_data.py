@@ -6,12 +6,14 @@ import os
 from sklearn.decomposition import RandomizedPCA
 from sklearn.neighbors import KNeighborsClassifier
 
+
+
 #setup a standard image size; this will distort some images but will get everything into the same shape
 
 # http://blog.yhathq.com/posts/image-classification-in-Python.html
 # http://nbviewer.ipython.org/gist/hernamesbarbara/5768969
 
-STANDARD_SIZE = (300, 300)
+STANDARD_SIZE = (256, 256)
 
 def img_to_matrix(filename, verbose=False):
     """
@@ -20,7 +22,8 @@ def img_to_matrix(filename, verbose=False):
     img = Image.open(filename)
     if verbose == True:
         print "changing size from %s to %s" % (str(img.size), str(STANDARD_SIZE))
-    img = img.resize(STANDARD_SIZE)
+    img = img.resize(STANDARD_SIZE, Image.ANTIALIAS)
+    #img = img.convert('1')
     img = list(img.getdata())
     img = map(list, img)
     img = np.array(img)
@@ -45,7 +48,7 @@ labels = ["dog" if "dog" in f.split('/')[-1] else "cat" for f in images]
 # Once resized to 300x167, we flatten the images using the flatten_image function, so each is represented as a row in a 2D array.
 data = []
 for image in images:
-    print 'debug: ' + image
+    print image
     img = img_to_matrix(image)
     img = flatten_image(img)
     data.append(img)
@@ -58,6 +61,8 @@ np.savetxt('processed_features-nparray.txt', data)
 
 
 # Define a training and test set
+
+
 is_train = np.random.uniform(0, 1, len(data)) <= 0.7
 y = np.where(np.array(labels)=="dog", 1, 0)
 
