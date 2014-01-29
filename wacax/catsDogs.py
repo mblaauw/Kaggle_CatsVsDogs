@@ -1,6 +1,4 @@
 __author__ = 'MBlaauw'
-
-
 #version 0.3
 #the revenge of the ng
 
@@ -20,9 +18,11 @@ from sklearn.grid_search  import GridSearchCV
 from sklearn.neural_network import BernoulliRBM
 
 
-wd = '/home/wacax/Documents/Wacax/Kaggle Data Analysis/DogsCats/' #change this to make the code work
-dataTrainDir = '/home/wacax/Documents/Wacax/Kaggle Data Analysis/DogsCats/Data/train/'
-dataTestDir = '/home/wacax/Documents/Wacax/Kaggle Data Analysis/DogsCats/Data/test1/'
+wd = '/Users/mblaauw/Downloads/06_P_PROJECTS/Kaggle_CatsVsDogs/' #change this to make the code work
+
+dataTrainDir = '/Users/mblaauw/Downloads/06_P_PROJECTS/Kaggle_CatsVsDogs/data/train/'
+dataTestDir = '/Users/mblaauw/Downloads/06_P_PROJECTS/Kaggle_CatsVsDogs/data/test1/'
+
 
 os.chdir(wd)
 

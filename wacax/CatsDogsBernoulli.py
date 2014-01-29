@@ -21,14 +21,17 @@ from sklearn.metrics import classification_report
 from sklearn.metrics import confusion_matrix
 from sklearn.pipeline import Pipeline
 
-wd = '/home/wacax/Documents/Wacax/Kaggle Data Analysis/DogsCats/' #change this to make the code work
-dataTrainDir = '/home/wacax/Documents/Wacax/Kaggle Data Analysis/DogsCats/Data/train/'
-dataTestDir = '/home/wacax/Documents/Wacax/Kaggle Data Analysis/DogsCats/Data/test1/'
+wd = '/Users/mblaauw/Downloads/06_P_PROJECTS/Kaggle_CatsVsDogs/' #change this to make the code work
+
+dataTrainDir = '/Users/mblaauw/Downloads/06_P_PROJECTS/Kaggle_CatsVsDogs/data/train/'
+dataTestDir = '/Users/mblaauw/Downloads/06_P_PROJECTS/Kaggle_CatsVsDogs/data/test1/'
+
 
 os.chdir(wd)
 
 labels = ['cat.', 'dog.']
 desiredDimensions = [45, 45]
+
 
 #define loading and pre-processing function grayscale
 def preprocessImg(animal, number, dim1, dim2, dataDir):
@@ -46,13 +49,13 @@ def preprocessImg(animal, number, dim1, dim2, dataDir):
 m = 12500 #full Train dataset
 mTest = 12500 #number of images in the test set
 
-
 indexesIm = np.random.permutation(m * len(labels))
 idxImages = np.tile(range(m), len(labels))
 idxImages = idxImages[indexesIm]
 testIndexes = range(len(indexesIm), len(indexesIm) + mTest)
 y = np.append(np.tile(0, m), np.tile(1, m))
 y = y[indexesIm]
+
 
 def animalInput(theNumber):
     if theNumber == 0:
