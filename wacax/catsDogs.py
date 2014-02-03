@@ -137,6 +137,8 @@ percentage = float(correctValues)/len(y_test)
 print(percentage)
 
 #prediction probability
+
+
 predictionFromDataset2 = clf.predict_proba(X_test)
 predictionFromDataset2 = predictionFromDataset2[:, 1]
 fpr, tpr, thresholds = metrics.roc_curve(y_test, predictionFromDataset2)

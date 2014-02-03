@@ -101,7 +101,7 @@ print("Fitting the classifier to the training set")
 t0 = time()
 param_grid = {'C': [1e3, 1e4, 1e5],
               'gamma': [0.0001,0.001, 0.01, 0.1], }
-clf = GridSearchCV(svm.SVC(kernel='rbf', class_weight='auto', verbose = True), param_grid)
+clf = GridSearchCV(svm.SVC(kernel='rbf', class_weight='auto', verbose = True, probability=False), param_grid)
 clf = clf.fit(X_train, y_train)
 print("done in %0.3fs" % (time() - t0))
 print("Best estimator found by grid search:")
@@ -178,7 +178,9 @@ print("done in %0.3fs" % (time() - t0))
 X_train = pca.transform(X_train)
 X_test = pca.transform(X_test)
 
+# need fix
 bigMatrixTrain = (np.row_stack(X_train, X_test) - np.min(np.row_stack(X_train, X_test), 0)) / (np.max(np.row_stack(X_train, X_test), 0) + 0.0001)  # 0-1 scaling
+
 X_train = bigMatrixTrain[0:X_train.shape[0], :]
 X_test = bigMatrixTrain[X_train.shape[0] + 1 :bigMatrixTrain.shape[0], :]
 
@@ -188,6 +190,8 @@ classifier.fit(X_train, y_train)
 print()
 print("Logistic regression using RBM features:\n%s\n" % (
     metrics.classification_report(y_test, classifier.predict(X_test))))
+
+
 print("Logistic regression using RBM features:\n%s\n" % (
     confusion_matrix(y_test, classifier.predict(X_test))))
 
